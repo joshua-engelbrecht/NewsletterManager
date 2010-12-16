@@ -13,6 +13,13 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
+                    <GridViewColumn x:Name="delete" Header="Delete" Width="auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Name="delete" Width="auto" BorderThickness="0"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn x:Name="firstName" Header="First Name" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -59,6 +66,7 @@
             </ListView.View>
         </ListView>
         <Button Name="finishEdit" Content="Finished Editing" Margin="0,0,12,5" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="103" Click="finishEdit_Click" />
-        <Button Content="Cancel" Height="23" HorizontalAlignment="Right" Margin="0,0,121,5" Name="cancel" VerticalAlignment="Bottom" Width="103" IsCancel="True" />
+        <Button Content="Cancel" Height="23" HorizontalAlignment="Right" Margin="0,0,230,5" Name="cancel" VerticalAlignment="Bottom" Width="103" IsCancel="True" />
+        <Button Content="Delete Selected" Height="23" HorizontalAlignment="Right" Margin="0,0,121,5" Name="deleteSelected" VerticalAlignment="Bottom" Width="103" Click="delete_Click"/>
     </Grid>
 </Window>

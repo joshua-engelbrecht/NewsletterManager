@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewletterManager", "NewletterManager\NewletterManager.csproj", "{AD8FF98B-28A4-4889-B5F3-760B15F5556F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsletterManager", "NewletterManager\NewsletterManager.csproj", "{AD8FF98B-28A4-4889-B5F3-760B15F5556F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -54,5 +54,10 @@ namespace NewsletterManager
         {
             get { return editedList; }
         }
+
+        private void delete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
