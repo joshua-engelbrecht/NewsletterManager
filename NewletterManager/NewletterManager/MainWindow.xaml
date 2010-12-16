@@ -1,0 +1,70 @@
+﻿<Window x:Class="NewsletterManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Newletter Manager" Height="480" Width="600"
+        Closing="Window_Closing">
+    <Grid>
+        <TabControl HorizontalAlignment="Stretch" Name="tabControl1" VerticalAlignment="Stretch">
+            <TabItem Header="Welcome" Name="tabItem8">
+                <Grid></Grid>
+            </TabItem>
+            <TabItem Header="Manage Subscribers" Name="tabItem1">
+                <Grid>
+                    <TabControl HorizontalAlignment="Stretch" Margin="6,6,6,6" Name="tabControl2" VerticalAlignment="Stretch">
+                        <TabItem Header="Add Subscriber" Name="tabItem5">
+                            <Grid Margin="6,6,6,6">
+                                <Label Content="First Name" Height="23" HorizontalAlignment="Left" Margin="10,10,0,0" Name="addSubFirstNameLabel" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="83,10,0,0" Name="addSubFirstName" VerticalAlignment="Top" Width="345" />
+                                <Label Content="Last Name" Height="23" HorizontalAlignment="Left" Margin="10,39,0,0" Name="addSubLastNameLabel" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="83,39,0,0" Name="addSubLastName" VerticalAlignment="Top" Width="345" />
+                                <Label Content="Email *" Height="23" HorizontalAlignment="Left" Margin="30,68,0,0" Name="addSubEmailLabel" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="83,68,0,0" Name="addSubEmail" VerticalAlignment="Top" Width="345" />
+                                <CheckBox Content="Can Receive HTML Emails" Height="16" HorizontalAlignment="Left" Margin="83,97,0,0" Name="addSubCanReceiveHtmlEmail" VerticalAlignment="Top" />
+                                <CheckBox Content="Can Receive Attachments" Height="16" HorizontalAlignment="Left" Margin="83,119,0,0" Name="addSubCanReceiveAttachment" VerticalAlignment="Top" />
+                                <Button Content="Add Subscriber" Height="23" HorizontalAlignment="Left" Margin="333,150,0,0"  Name="addSubscriber" VerticalAlignment="Top" Width="95" Click="addSubscriber_Click" />
+                                <Button Content="Clear Form" Height="23" HorizontalAlignment="Left" Margin="232,150,0,0" Name="button1" VerticalAlignment="Top" Width="95" Click="clearAddTextBoxes"/>
+                                <Label Content="* required Field" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="12"/>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Find Subscriber" Name="tabItem6">
+                            <Grid Margin="6,6,6,6">
+                                <Label Content="First Name" Height="23" HorizontalAlignment="Left" Margin="13,39,0,0" Name="findSubFirstNameLabel" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="86,39,0,0" Name="findSubFirstName" VerticalAlignment="Top" Width="345" />
+                                <Label Content="Last Name" Height="23" HorizontalAlignment="Left" Margin="13,68,0,0" Name="findSubLastNameLabel" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="86,68,0,0" Name="findSubLastName" VerticalAlignment="Top" Width="345" />
+                                <Label Content="Email" Height="23" HorizontalAlignment="Left" Margin="41,97,0,0" Name="findSubEmailLabel" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="86,97,0,0" Name="findSubEmail" VerticalAlignment="Top" Width="345" />
+                                <StackPanel Margin="13,126,0,0" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="239">
+                                    <Label Content="Can The Subscriber Receive HTML Email?"/>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <RadioButton GroupName="CanReceiveHtmlEmail" Content="Yes" Name="CRHE_true" Checked="CRHEChecked" Margin="6,6,6,6"  />
+                                        <RadioButton GroupName="CanReceiveHtmlEmail" Content="No" Name="CRHE_false" Checked="CRHEChecked" Margin="6,6,6,6"  />
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Margin="13,182,0,0" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="239">
+                                    <Label Content="Can The Subscriber Receive Attachments?"/>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <RadioButton Margin="6,6,6,6" GroupName="CanReceiveHtmlEmail" Content="Yes" Name="CRA_true" Checked="CRAChecked"/>
+                                        <RadioButton Margin="6,6,6,6" GroupName="CanReceiveHtmlEmail" Content="No" Name="CRA_false" Checked="CRAChecked"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <Button Content="Find Subscriber" Height="23" HorizontalAlignment="Left" Margin="336,248,0,0" Name="findSubscriber" VerticalAlignment="Top" Width="95" Click="findSubscriber_Click" />
+                                <Label Height="28" HorizontalAlignment="Left" Margin="13,6,0,0" Name="textBox1" VerticalAlignment="Top" Width="357" Content="Enter Any Information you have about the Subscriber:"/>
+                                <Button Content="Clear Form" Height="23" HorizontalAlignment="Left" Margin="235,248,0,0" Name="button2" VerticalAlignment="Top" Width="95" Click="clearFindTextBoxes" />
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Manage Newsletters" Name="tabItem2">
+                <Grid />
+            </TabItem>
+            <TabItem Header="Manage Distribution Lists" Name="tabItem3">
+                <Grid></Grid>
+            </TabItem>
+            <TabItem Header="Send Newsletter" Name="tabItem4">
+                <Grid />
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
