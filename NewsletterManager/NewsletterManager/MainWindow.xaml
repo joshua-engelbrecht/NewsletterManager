@@ -167,6 +167,7 @@
                                     </Grid>
                                 </Expander>
                                 <Button Content="Clear Form" Height="23" HorizontalAlignment="Left" Margin="324,319,0,0" Name="findDistroClearBtn" VerticalAlignment="Top" Width="75" Click="clearFindDistroClick" />
+                                <CheckBox Content="Is the newsletter sent as an attachment" Height="16" HorizontalAlignment="Left" Margin="6,77,0,0" Name="AttachNewsletter" VerticalAlignment="Top" />
                             </Grid>
                         </TabItem>
                     </TabControl>

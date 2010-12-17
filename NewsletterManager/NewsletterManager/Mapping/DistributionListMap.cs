@@ -23,7 +23,7 @@ namespace NewsletterManager.Mapping
             return rtn;
         }
 
-        public List<DistributionList> findDistributionLists(DistributionList findDistribution)
+        public List<DistributionList> getDistributionLists()
         {
             var ListOfDistributionLists = new List<DistributionList>();
             var sql = string.Format("SELECT Id, Name, LastSentDate, SendNewsletterAsAttachment from nl.DistributionList");
@@ -45,5 +45,47 @@ namespace NewsletterManager.Mapping
             }
             return ListOfDistributionLists;
         }
+
+        public List<DistributionList> getDistributionLists(DistributionList searchCriteria)
+        {
+            var ListOfDistributionLists = new List<DistributionList>();
+            var whereString = "";
+
+            if (!String.IsNullOrEmpty(searchCriteria.Name))
+            {
+                whereString += string.Format("Name like '%{0}%'", searchCriteria.Name);
+            }
+
+            if (!String.IsNullOrEmpty(searchCriteria.LastSentDate.ToShortDateString())
+            {
+                whereString += string.Format(" {0} LastSentDate < '{1}'", (String.IsNullOrEmpty(whereString)) ? "" : "and", searchCriteria.LastSentDate.ToShortDateString());
+            }
+
+            if (searchCriteria.SendNewsletterAsAttachment)
+            {
+                whereString += string.Format(" {0} SendNewsletterAsAttachment = '{1}'", (String.IsNullOrEmpty(whereString)) ? "" : "and", (searchCriteria.SendNewsletterAsAttachment == true) ? 1 : 0);
+            }
+
+            if (String.IsNullOrEmpty(whereString))
+                return getDistributionLists();
+
+            var sql = string.Format("SELECT Id, Name, LastSentDate, SendNewsletterAsAttachment from nl.DistributionList WHERE {0}", whereString);
+            using (var cmd = new SqlCommand(sql, connection))
+            {
+                var dataReader = cmd.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    ListOfDistributionLists.Add(new DistributionList
+                    {
+                        Id = (Guid)dataReader["Id"],
+                        Name = (string)dataReader["Name"],
+                        LastSentDate= (DateTime)dataReader["LastSentDate"],
+                        SendNewsletterAsAttachment = ((int)dataReader["SendNewsletterAsAttachment"] == 0) ? false : true
+                    });
+
+                }
+                dataReader.Close();
+            }
+            return ListOfDistributionLists;
     }
 }

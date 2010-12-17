@@ -246,10 +246,11 @@ namespace NewsletterManager
         {
             var findDistribution = new DistributionList{
                 Name = findDistroName.Text,
-                LastSentDate = DateTime.Parse(findDistroDate.Text)
+                LastSentDate = DateTime.Parse(findDistroDate.Text),
+                SendNewsletterAsAttachment = (AttachNewsletter.IsChecked == true) ? true : false
             };
 
-            List<DistributionList> distroLists = distributionListMapping.findDistributionLists(findDistribution);
+            List<DistributionList> distroLists = distributionListMapping.getDistributionLists(findDistribution);
 
             clearFindDistroClick(null, null);
         }
