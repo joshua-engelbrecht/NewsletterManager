@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Forms;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -27,10 +28,13 @@ namespace NewsletterManager
     public partial class MainWindow : Window
     {
         SubscriberMap subscriberMapping = new SubscriberMap();
+        DistributionListMap distributionListMapping = new DistributionListMap();
+        SubscriberToDistroMap subscriberToDistributionMapping = new SubscriberToDistroMap();
         string connectionString = ConfigurationManager.AppSettings["connectionString"];
         SqlConnection conn;
         private bool _canreceivehtmlemail = false;
         private bool _canreceiveattachment = false;
+        private bool _distroListSent = false;
 
         public MainWindow()
         {
@@ -38,7 +42,11 @@ namespace NewsletterManager
             conn = new SqlConnection();
             conn.ConnectionString = connectionString;
             conn.Open();
+            subscriberMapping.connection = distributionListMapping.connection = subscriberToDistributionMapping.connection = conn;
+            fillDistroListSubscriberFrom();
         }
+
+
 
         private void addSubscriber_Click(object sender, RoutedEventArgs e)
         {
@@ -48,13 +56,13 @@ namespace NewsletterManager
                 CanReceiveHtmlEmail = (addSubCanReceiveHtmlEmail.IsChecked == true) ? true : false,
                 CanReceiveAttachment = (addSubCanReceiveAttachment.IsChecked == true) ? true : false
             };
-            var success = subscriberMapping.addSubscriber(newSubscriber, conn);
+            var success = subscriberMapping.addSubscriber(newSubscriber);
             var msg = string.Format("{0} {1} added unsuccessfully", newSubscriber.FirstName, newSubscriber.LastName);
             if (success > 0)
             {
                 msg = string.Format("{0} {1} added successfully", newSubscriber.FirstName, newSubscriber.LastName);
             }
-            MessageBox.Show(msg);
+            System.Windows.MessageBox.Show(msg);
             
             addSubFirstName.Text = "";
             addSubLastName.Text = "";
@@ -71,13 +79,13 @@ namespace NewsletterManager
                 CanReceiveHtmlEmail = (addSubCanReceiveHtmlEmail.IsChecked == true) ? true : false,
                 CanReceiveAttachment = (addSubCanReceiveAttachment.IsChecked == true) ? true : false
             };
-            var success = subscriberMapping.editSubscriber(editSubscriber, conn);
+            var success = subscriberMapping.editSubscriber(editSubscriber);
             var msg = string.Format("{0} {1} added unsuccessfully", editSubscriber.FirstName, editSubscriber.LastName);
             if (success > 0)
             {
                 msg = string.Format("{0} {1} added successfully", editSubscriber.FirstName, editSubscriber.LastName);
             }
-            MessageBox.Show(msg);
+            System.Windows.MessageBox.Show(msg);
             clearAddTextBoxes(null, null);
         }
 
@@ -102,16 +110,10 @@ namespace NewsletterManager
                 CanReceiveAttachment = _canreceiveattachment
             };
 
-            var listOfSubscribers = subscriberMapping.getSubscribers(findSubscriber, conn);
+            var listOfSubscribers = subscriberMapping.getSubscribers(findSubscriber);
             //display subscribers
-            var editWindow = new EditSubscribers(listOfSubscribers);
-            var ret = editWindow.ShowDialog();
-            if (ret.Value)
-            {
-                var editedSubscribers = editWindow.getEditedList;
-                subscriberMapping.editSubscribers(editedSubscribers, conn);
-            }
-
+            var findWindow = new FindSubscribers(listOfSubscribers, subscriberMapping);
+            findWindow.ShowDialog();
             clearFindTextBoxes(null, null);
         }
 
@@ -150,5 +152,107 @@ namespace NewsletterManager
             addSubCanReceiveHtmlEmail.IsChecked = false;
             addSubCanReceiveAttachment.IsChecked = false;
         }
+
+        private void toDistroList_Click(object sender, RoutedEventArgs e)
+        {
+            var selected = new List<Subscribers>();
+            foreach (Subscribers subscriber in addDistroListToSelectFrom.SelectedItems)
+            {
+                selected.Add(subscriber);
+            }
+
+            foreach (Subscribers subscriber in selected)
+            {
+                addDistroListSelectedSubscribers.Items.Add(subscriber);
+                addDistroListToSelectFrom.Items.Remove(subscriber);
+            }
+        }
+
+        private void fromDistroList_Click(object sender, RoutedEventArgs e)
+        {
+            var selected = new List<Subscribers>();
+            foreach (Subscribers subscriber in addDistroListSelectedSubscribers.SelectedItems)
+            {
+                selected.Add(subscriber);
+            }
+            foreach (Subscribers subscriber in selected)
+            {
+                addDistroListToSelectFrom.Items.Add(subscriber);
+                addDistroListSelectedSubscribers.Items.Remove(subscriber);
+            }
+            
+        }
+
+        private void fillDistroListSubscriberFrom()
+        {
+            var listOfSubscribers = subscriberMapping.getSubscribers();
+            foreach (Subscribers subscriber in listOfSubscribers)
+            {
+                addDistroListToSelectFrom.Items.Add(subscriber);
+            }
+        }
+
+        private void addDistroList_Click(object sender, RoutedEventArgs e)
+        {
+            var newDistroList = new DistributionList
+            {
+                Id = Guid.NewGuid(),
+                Name = addDistroListName.Text,
+                SendNewsletterAsAttachment = (addDistroListSendAtAttachment.IsChecked == true) ? true : false
+            };
+
+            var success1 = distributionListMapping.addDistributionList(newDistroList);
+            var success2 = 0;
+            foreach (Subscribers addToDistroList in addDistroListSelectedSubscribers.Items)
+            {
+                success2 = subscriberToDistributionMapping.addNewMapping(addToDistroList.Id, newDistroList.Id);
+            }
+
+            var msg = string.Format("{0} added unsuccessfully", newDistroList.Name);
+            if (success1 > 0 && success2 > 0)
+            {
+                msg = string.Format("{0} added successfully", newDistroList.Name);
+            }
+
+
+            System.Windows.MessageBox.Show(msg);
+            clearAddDistroForm(null, null);
+
+        }
+
+        private void clearAddDistroForm(object sender, RoutedEventArgs e)
+        {
+            addDistroListName.Text = "";
+            addDistroListSendAtAttachment.IsChecked = false;
+            addDistroListSelectedSubscribers.Items.Clear();
+            addDistroListToSelectFrom.Items.Clear();
+            fillDistroListSubscriberFrom();
+        }
+
+        private void calendar1_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateTime selectedDate = findDistroDateCal.SelectedDate.Value;
+            findDistroDate.Text = selectedDate.ToShortDateString();
+            findDistroDateExpander.IsExpanded = false;
+        }
+
+        private void clearFindDistroClick(object sender, RoutedEventArgs e)
+        {
+            findDistroName.Text = "";
+            findDistroDate.Text = "";
+        }
+
+        private void findDistributionList_Click(object sender, RoutedEventArgs e)
+        {
+            var findDistribution = new DistributionList{
+                Name = findDistroName.Text,
+                LastSentDate = DateTime.Parse(findDistroDate.Text)
+            };
+
+            List<DistributionList> distroLists = distributionListMapping.findDistributionLists(findDistribution);
+
+            clearFindDistroClick(null, null);
+        }
+
     }
 }

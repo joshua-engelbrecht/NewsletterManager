@@ -7,10 +7,9 @@ namespace NewsletterManager.Entities
 {
     public class DistributionList
     {
-        public Guid Id { get; private set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
-        public Guid NewsletterId { get; set; }
-        public bool HasBeenSent { get; set; }
+        public DateTime LastSentDate { get; set; }
         public bool SendNewsletterAsAttachment { get; set; }
     }
 }

@@ -56,11 +56,121 @@
                     </TabControl>
                 </Grid>
             </TabItem>
-            <TabItem Header="Manage Newsletters" Name="tabItem2">
-                <Grid />
-            </TabItem>
             <TabItem Header="Manage Distribution Lists" Name="tabItem3">
-                <Grid></Grid>
+                <Grid>
+                    <TabControl HorizontalAlignment="Stretch" Margin="6,6,6,6" Name="DistroLists" VerticalAlignment="Stretch">
+                        <TabItem Header="Add Distribution List" Name="addDistroList">
+                            <Grid Margin="6,6,6,6">
+                                <Label Content="* required Field" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="12"/>
+                                <Label Content="Name" Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" Name="addDistroListNameLabel" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="54,11,0,0" Name="addDistroListName" VerticalAlignment="Top" Width="474" />
+                                <CheckBox Content="Send Newsletter As Attachment" Height="16" HorizontalAlignment="Left" Margin="6,40,0,0" Name="addDistroListSendAtAttachment" VerticalAlignment="Top"/>
+                                
+                                <Button Content="| .." Height="23" HorizontalAlignment="Left" Margin="248,155,0,0" Name="toDistroList" VerticalAlignment="Top" Width="38" Click="toDistroList_Click" />
+                                <Button Content=".. |" Height="23" HorizontalAlignment="Left" Margin="248,193,0,0" Name="fromDistroList" VerticalAlignment="Top" Width="38" Click="fromDistroList_Click" />
+                                <Label Content="Subscribers" Height="28" HorizontalAlignment="Left" Margin="10,62,0,0" Name="label1" VerticalAlignment="Top" Width="232" />
+                                <Label Content="Distribution List Subscribers" Height="28" HorizontalAlignment="Left" Margin="292,62,0,0" Name="label2" VerticalAlignment="Top" Width="232" />
+                                <ListView Height="218" HorizontalAlignment="Left" Margin="6,90,0,0" Name="addDistroListToSelectFrom" VerticalAlignment="Top" Width="236" SelectionMode="Multiple">
+                                    <ListView.ItemContainerStyle>
+                                        <Style>
+                                            <Setter Property="Control.HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Control.VerticalContentAlignment" Value="Stretch" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn x:Name="firstName" Header="First Name" Width="auto">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Label Content="{Binding Path=FirstName, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}"  Width="auto" BorderThickness="0"/>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn x:Name="lastName" Header="Last Name" Width="auto">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Label Content="{Binding Path=LastName, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="-6,-1" Width="auto" BorderThickness="0"/>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn x:Name="emailAddress" Header="Email Address" Width="auto">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Label Content="{Binding Path=EmailAddress, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="-6,-1" Width="auto" BorderThickness="0"/>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn x:Name="id" Header="Id" Width="0">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox Text="{Binding Path=Id, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="-6,-1" Width="50" BorderThickness="0" HorizontalAlignment="Center" Visibility="Hidden"/>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                                <ListView Height="218" HorizontalAlignment="Left" Margin="292,90,0,0" Name="addDistroListSelectedSubscribers" VerticalAlignment="Top" Width="236" SelectionMode="Multiple">
+                                    <ListView.ItemContainerStyle>
+                                        <Style>
+                                            <Setter Property="Control.HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Control.VerticalContentAlignment" Value="Stretch" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn x:Name="firstNameDLS" Header="First Name" Width="auto">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Label Content="{Binding Path=FirstName, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}"  Width="auto" BorderThickness="0"/>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn x:Name="lastNameDLS" Header="Last Name" Width="auto">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Label Content="{Binding Path=LastName, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="-6,-1" Width="auto" BorderThickness="0"/>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn x:Name="emailAddressDLS" Header="Email Address" Width="auto">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Label Content="{Binding Path=EmailAddress, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="-6,-1" Width="auto" BorderThickness="0"/>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn x:Name="idDLS" Header="Id" Width="0">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox Text="{Binding Path=Id, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="-6,-1" Width="50" BorderThickness="0" HorizontalAlignment="Center" Visibility="Hidden"/>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                                <Button Content="Clear Form" Height="23" HorizontalAlignment="Left" Margin="324,324,0,0" Name="clearAddDistroFormBtn" VerticalAlignment="Top" Width="75" Click="clearAddDistroForm" />
+                                <Button Content="Add Distribution List" Height="23" HorizontalAlignment="Left" Margin="405,324,0,0" Name="addDistroListSubmit" VerticalAlignment="Top" Width="123" Click="addDistroList_Click"/>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Find Distribution List" Name="findDistroList">
+                            <Grid Margin="6,6,6,6">
+                                <Button Content="Find Distribution List" Height="23" HorizontalAlignment="Left" Margin="405,319,0,0" Name="findDistributionList" VerticalAlignment="Top" Width="122" Click="findDistributionList_Click" />
+                                <Label Content="Distribution List Name:" Height="28" HorizontalAlignment="Left" Margin="6,14,0,0" Name="label3" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="140,14,0,0" Name="findDistroName" VerticalAlignment="Top" Width="387" />
+                                <Label Content="Distribution Last Sent:" Height="28" HorizontalAlignment="Left" Margin="6,43,0,0" Name="label4" VerticalAlignment="Top" />
+                                <TextBox Height="23" HorizontalAlignment="Left" Margin="140,43,0,0" Name="findDistroDate" VerticalAlignment="Top" Width="136" />
+                                <Expander Header="Select Date" Height="243" HorizontalAlignment="Left" Margin="282,44,0,0" Name="findDistroDateExpander" VerticalAlignment="Top" Width="245">
+                                    <Grid>
+                                        <Calendar HorizontalAlignment="Stretch"  Margin="6,6,6,6" Name="findDistroDateCal" VerticalAlignment="Stretch" SelectedDatesChanged="calendar1_SelectedDatesChanged" />
+                                    </Grid>
+                                </Expander>
+                                <Button Content="Clear Form" Height="23" HorizontalAlignment="Left" Margin="324,319,0,0" Name="findDistroClearBtn" VerticalAlignment="Top" Width="75" Click="clearFindDistroClick" />
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
             </TabItem>
             <TabItem Header="Send Newsletter" Name="tabItem4">
                 <Grid />

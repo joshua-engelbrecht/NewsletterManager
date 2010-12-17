@@ -56,6 +56,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -73,9 +74,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="EditSubscribers.xaml.cs">
-      <DependentUpon>EditSubscribers.xaml</DependentUpon>
+    <Compile Include="FindSubscribers.xaml.cs">
+      <DependentUpon>FindSubscribers.xaml</DependentUpon>
     </Compile>
+    <Page Include="EditSubscriberView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -84,21 +89,25 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="EditSubscriberView.xaml.cs">
+      <DependentUpon>EditSubscriberView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Entities\DistributionList.cs" />
-    <Compile Include="Entities\Newsletter.cs" />
     <Compile Include="Entities\Subscriber.cs" />
     <Compile Include="Entities\SubscriberToDistro.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="EditSubscribers.xaml">
+    <Page Include="FindSubscribers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mapping\DistributionListMap.cs" />
     <Compile Include="Mapping\SubscriberMap.cs" />
+    <Compile Include="Mapping\SubscriberToDistroMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

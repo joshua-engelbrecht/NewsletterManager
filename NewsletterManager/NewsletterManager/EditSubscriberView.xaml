@@ -1,0 +1,18 @@
+﻿<Window x:Class="NewsletterManager.EditSubscriberView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Edit Subscriber" Height="228" Width="468">
+    <Grid>
+        <Label Content="First Name" Height="23" HorizontalAlignment="Left" Margin="10,10,0,0" Name="editSubFirstNameLabel" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="83,10,0,0" Name="editSubFirstName" VerticalAlignment="Top" Width="345" />
+        <Label Content="Last Name" Height="23" HorizontalAlignment="Left" Margin="10,39,0,0" Name="editSubLastNameLabel" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="83,39,0,0" Name="editSubLastName" VerticalAlignment="Top" Width="345" />
+        <Label Content="Email *" Height="23" HorizontalAlignment="Left" Margin="30,68,0,0" Name="editSubEmailLabel" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="83,68,0,0" Name="editSubEmail" VerticalAlignment="Top" Width="345" />
+        <CheckBox Content="Can Receive HTML Emails" Height="16" HorizontalAlignment="Left" Margin="83,97,0,0" Name="editSubCanReceiveHtmlEmail" VerticalAlignment="Top" />
+        <CheckBox Content="Can Receive Attachments" Height="16" HorizontalAlignment="Left" Margin="83,119,0,0" Name="editSubCanReceiveAttachment" VerticalAlignment="Top" />
+        <Button Content="Edit Subscriber" Height="23" HorizontalAlignment="Left" Margin="333,150,0,0" Name="editSubscriber" VerticalAlignment="Top" Width="95" Click="editSubscriber_Click" />
+        <Button Content="Cancel" IsCancel="True" Height="23" HorizontalAlignment="Left" Margin="232,150,0,0" Name="Cancel" VerticalAlignment="Top" Width="95" />
+        <Label Content="* required Field" FontSize="12" HorizontalAlignment="Left" Margin="12,0,0,16" VerticalAlignment="Bottom" />
+    </Grid>
+</Window>
